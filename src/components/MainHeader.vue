@@ -1,6 +1,7 @@
 <template>
   <div class="greetings">
-    <h1 class="green">Castles of Liz</h1>
+    <h1>Castles of Liz</h1>
+    <img alt="Liz" class="logo" src="../assets/liz.png" width="100px" />
   </div>
 </template>
 
@@ -12,12 +13,11 @@ h1 {
   top: -10px;
 }
 
-h3 {
-  font-size: 1.2rem;
+.greetings {
+  display: flex;
 }
 
-.greetings h1,
-.greetings h3 {
+.greetings h1 {
   text-align: center;
 }
 </style>
