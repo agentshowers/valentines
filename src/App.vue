@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import Header from './components/MainHeader.vue'
+import StartGame from './components/StartGame.vue'
+import TheGame from './components/game/TheGame.vue'
+import { ref } from 'vue'
+
+const started = ref(false)
 </script>
 
 <template>
@@ -8,12 +12,13 @@ import TheWelcome from './components/TheWelcome.vue'
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <Header msg="You did it!" />
     </div>
   </header>
 
   <main>
-    <TheWelcome />
+    <TheGame v-if="started" />
+    <StartGame v-else text="Start the game" @start-game="started = true" />
   </main>
 </template>
 
@@ -25,23 +30,5 @@ header {
 .logo {
   display: block;
   margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
 }
 </style>
