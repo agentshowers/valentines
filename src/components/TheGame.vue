@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import HexagonTile from './HexagonTile.vue'
-import DiceRoller from './DiceRoller.vue'
+import HexagonTile from './game/HexagonTile.vue'
+import DiceRoller from './game/DiceRoller.vue'
 import { ref } from 'vue'
 
 class Hexagon {
