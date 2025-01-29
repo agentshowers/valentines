@@ -1,5 +1,8 @@
 <script setup lang="ts">
-defineProps(['color', 'filled'])
+defineProps<{
+  color: string
+  filled: boolean
+}>()
 </script>
 
 <template>
@@ -9,5 +12,6 @@ defineProps(['color', 'filled'])
 <style scoped>
 .hexagon-background {
   background-color: v-bind(color);
+  opacity: v-bind(filled ? 1: 0.3);
 }
 </style>
