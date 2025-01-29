@@ -116,7 +116,7 @@ function rollDice(reRoll: boolean) {
 
 <style scoped>
 .game-board {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 .game-controls {
   display: flex;
