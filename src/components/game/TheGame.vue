@@ -61,7 +61,8 @@ class State {
 
 const state = ref(State.defaultState())
 
-function rollDice() {
+function rollDice(reRoll: boolean) {
+  console.log('rollDice', reRoll)
   state.value.dice = Math.floor(Math.random() * 6) + 1
 }
 </script>
@@ -94,16 +95,22 @@ function rollDice() {
       </div>
     </div>
   </div>
-  <div class="game-footer">
-    <div class="game-state">
-      <p>Workers: {{ state.workers }}</p>
-      <p>Re-rolls: {{ state.reRolls }}</p>
-      <p>Coins: {{ state.coins }}</p>
-    </div>
+  <div class="game-controls">
     <div class="dice-area">
-      <DiceRoller @rollDice="rollDice" :allowRoll="true" :diceValue="state.dice" />
+      <DiceRoller
+        @rollDice="rollDice"
+        :allowRoll="true"
+        :diceValue="state.dice"
+        :re-rolls="state.reRolls"
+      />
     </div>
+    <div class="pick-area">Pick</div>
     <div class="buy-area">Buy</div>
+  </div>
+  <div class="game-state">
+    <p>Workers: {{ state.workers }}</p>
+    <p>Re-rolls: {{ state.reRolls }}</p>
+    <p>Coins: {{ state.coins }}</p>
   </div>
 </template>
 
@@ -111,17 +118,23 @@ function rollDice() {
 .game-board {
   margin-top: 50px;
 }
-.game-footer {
+.game-controls {
   display: flex;
   margin-top: 50px;
 }
-.game-state {
+.dice-area {
   width: 25%;
 }
-.dice-area {
+.pick-area {
   width: 50%;
 }
 .buy-area {
   width: 25%;
+}
+.game-state {
+  display: flex;
+  position: absolute;
+  bottom: 10%;
+  gap: 25px;
 }
 </style>

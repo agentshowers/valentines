@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useTemplateRef, watchEffect } from 'vue'
 
-const { allowRoll, diceValue } = defineProps<{
+const { allowRoll, diceValue, reRolls } = defineProps<{
   allowRoll: boolean
   diceValue: number
+  reRolls: number
 }>()
 
 defineEmits(['rollDice'])
@@ -29,8 +30,8 @@ function updateDice(value: number) {
 </script>
 
 <template>
-  <div class="dice-roller">
-    <div ref="dice" class="dice" @click="$emit('rollDice')">
+  <div class="dice-container">
+    <div ref="dice" class="dice">
       <div class="side one">
         <div class="dot one-1"></div>
       </div>
@@ -65,19 +66,23 @@ function updateDice(value: number) {
         <div class="dot six-6"></div>
       </div>
     </div>
+    <div>
+      <button v-if="allowRoll" @click="$emit('rollDice', false)">Roll Dice</button>
+      <button v-else-if="reRolls > 0" @click="$emit('rollDice', true)">Re-roll Dice</button>
+    </div>
   </div>
 </template>
 
 <style>
 :root {
-  --ratio: 1;
+  --ratio: 0.8;
 }
 
-.dice-roller {
+.dice-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  align-items: left;
+  gap: 30px;
 }
 
 .dice {
