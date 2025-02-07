@@ -3,6 +3,13 @@
   --hex-margin: 1px; /* margin */
 }
 
+@media (min-width: 500px) {
+  :root {
+    --hex-width: 65px; /* size  */
+    --hex-margin: 1px; /* margin */
+  }
+}
+
 .hexagon-row {
   display: flex;
   justify-content: center;
