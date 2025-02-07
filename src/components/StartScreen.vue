@@ -4,9 +4,9 @@ defineEmits(['start-game'])
 
 <template>
   <div class="wrapper">
-    <img alt="Castles of Liz" class="logo" src="../assets/images/banner.png" />
+    <img alt="Castles of Liz" class="logo" src="@/assets/images/banner.png" />
     <div class="village-container">
-      <img alt="Village" class="village" src="../assets/images/village.png" />
+      <img alt="Village" class="village" src="@/assets/images/village.png" />
     </div>
 
     <button @click="$emit('start-game')" class="start-button">Start the game</button>

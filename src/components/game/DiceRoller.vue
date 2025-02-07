@@ -78,8 +78,9 @@ function updateDice(value: number) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px;
-  padding-top: 5px;
+  justify-content: space-between;
+  padding-top: 10px;
+  height: 100%;
 }
 
 .dice {

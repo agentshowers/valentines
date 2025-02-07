@@ -19,7 +19,8 @@ defineProps<{
 .buy-area {
   display: flex;
   flex-direction: column;
-  gap: 20px;
   align-items: center;
+  justify-content: space-between;
+  height: 100%;
 }
 </style>

@@ -58,11 +58,6 @@ const minTransformations = function (roll: number, index: number): number {
   return Math.min(Math.abs(roll - index), 6 - Math.abs(roll - index))
 }
 
-export const memoryPath = function (type: string, index: number): string {
-  const src = require.context('@/assets/', false)
-  return src('./' + path)
-}
-
 export class Hexagon {
   color: string
   filled: boolean
@@ -132,7 +127,6 @@ export class Game {
 
   rollDice() {
     this.dice = Math.floor(Math.random() * 6) + 1
-    console.log('rolled a', this.dice)
     this.state = GameState.TileSelection
   }
 
@@ -179,7 +173,7 @@ export class Game {
       this.silvers += 1
       this.daresCompleted += 1
     } else if (this.reward === Reward.Memory) {
-      console.log('Memory reward')
+      this.photosUnlocked += 1
     }
     this.reward = undefined
     if (this.regionCompleted) {
@@ -191,6 +185,7 @@ export class Game {
 
   acceptRegionReward() {
     this.regionCompleted = false
+    this.videosUnlocked += 1
     this.state = GameState.RollOrBuy
   }
 
@@ -205,11 +200,11 @@ export class Game {
       new Hexagon('yellow'),
       new Hexagon('yellow'),
       new Hexagon('yellow'),
-      new Hexagon('green', true),
+      new Hexagon('green'),
       new Hexagon('yellow'),
       new Hexagon('blue'),
       new Hexagon('yellow'),
-      new Hexagon('green', true),
+      new Hexagon('green'),
       new Hexagon('green'),
       new Hexagon('blue'),
       new Hexagon('yellow'),
