@@ -3,26 +3,37 @@ defineEmits(['start-game'])
 </script>
 
 <template>
-  <div class="greetings">
-    <h1>Castles of Liz</h1>
-    <img alt="Liz" class="logo" src="../assets/liz.png" width="100px" />
+  <div class="wrapper">
+    <img alt="Castles of Liz" class="logo" src="../assets/images/banner.png" />
+    <div class="village-container">
+      <img alt="Village" class="village" src="../assets/images/village.png" />
+    </div>
+
+    <button @click="$emit('start-game')" class="start-button">Start the game</button>
   </div>
-  <button @click="$emit('start-game')">Start the game</button>
 </template>
 
 <style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
-}
-
-.greetings {
+.wrapper {
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.greetings h1 {
-  text-align: center;
+.logo {
+  width: 100%;
+}
+
+.village-container {
+  padding: 10px;
+}
+
+.village {
+  border: 5px solid #ffd700;
+  width: 100%;
+}
+
+.start-button {
+  margin-top: 25px;
 }
 </style>
