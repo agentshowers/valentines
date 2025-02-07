@@ -19,7 +19,7 @@ defineProps<{
 .buy-area {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
   align-items: center;
 }
 </style>

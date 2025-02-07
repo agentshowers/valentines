@@ -33,6 +33,10 @@ const REGIONS: Array<Array<number>> = [
   [11, 15, 17, 18],
 ]
 
+const minTransformations = function (roll: number, index: number): number {
+  return Math.min(Math.abs(roll - index), 6 - Math.abs(roll - index))
+}
+
 export class Hexagon {
   color: string
   filled: boolean
@@ -59,7 +63,7 @@ export class Hexagon {
 
 export class Game {
   hexagons: Hexagon[]
-  workers: number = 0
+  workers: number = 2
   coins: number = 4
   dice: number = 6
   selectedColor?: string
@@ -74,6 +78,7 @@ export class Game {
   rollDice() {
     this.dice = Math.floor(Math.random() * 6) + 1
     console.log('rolled a', this.dice)
+    this.state = GameState.TileSelection
   }
 
   canBuy(color: string): boolean {
@@ -86,6 +91,22 @@ export class Game {
   buyTile(color: string) {
     this.coins -= 2
     this.selectedColor = color
+    this.state = GameState.TilePlacement
+  }
+
+  canPick(index: number): boolean {
+    return minTransformations(this.dice, index) <= this.workers
+  }
+
+  pickTile(index: number) {
+    if (index === 1 || index === 4) {
+      this.selectedColor = 'yellow'
+    } else if (index === 2 || index === 5) {
+      this.selectedColor = 'blue'
+    } else {
+      this.selectedColor = 'green'
+    }
+    this.workers -= minTransformations(this.dice, index)
     this.state = GameState.TilePlacement
   }
 

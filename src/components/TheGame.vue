@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import HexagonTile from './game/HexagonTile.vue'
-import DiceRoller from './game/DiceRoller.vue'
-import BuyTile from './game/BuyTile.vue'
+import TileSelection from './game/TileSelection.vue'
 
 import { ref } from 'vue'
 import { Game, GameState, HexagonState, Reward } from '@/gameLogic'
@@ -58,24 +57,11 @@ const game = ref(Game.newGame())
     </div>
   </div>
   <div class="game-controls">
-    <div v-if="game.state === GameState.RollOrBuy" class="roll-or-buy">
-      <div class="dice-area">
-        <DiceRoller :allowRoll="true" :game="game" />
-      </div>
-      <div class="buy-area">
-        <div>
-          <BuyTile :color="'yellow'" :game="game" />
-        </div>
-        <div>
-          <BuyTile :color="'blue'" :game="game" />
-        </div>
-        <div>
-          <BuyTile :color="'green'" :game="game" />
-        </div>
-      </div>
-    </div>
-    <div v-else-if="game.state === GameState.TileSelection">
-      <div class="pick-area">Pick</div>
+    <div
+      v-if="game.state === GameState.RollOrBuy || game.state === GameState.TileSelection"
+      class="roll-or-buy"
+    >
+      <TileSelection :game="game" />
     </div>
     <div v-else-if="game.state === GameState.TilePlacement" class="tile-placement">
       <HexagonTile :color="game.selectedColor!" :state="HexagonState.Filled" />
@@ -107,22 +93,8 @@ const game = ref(Game.newGame())
   margin-top: 50px;
 }
 
-.roll-or-buy {
-  display: flex;
-  gap: 25px;
-}
-
-.dice-area {
-  width: 25%;
-}
-
 .pick-area {
   width: 50%;
-}
-
-.buy-area {
-  display: flex;
-  gap: 20px;
 }
 
 .tile-placement {
