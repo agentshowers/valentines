@@ -42,8 +42,25 @@ const INDEX_COLORS: Record<number, string> = {
   6: 'green',
 }
 
+// TODO: Replace the dares with actual dares
+export const DARES: Array<string> = [
+  'The 1st thing',
+  'The 2nd thing',
+  'The 3rd thing',
+  'The 4th thing',
+  'The 5th thing',
+  'The 6th thing',
+  'The 7th thing',
+  'The 8th thing',
+]
+
 const minTransformations = function (roll: number, index: number): number {
   return Math.min(Math.abs(roll - index), 6 - Math.abs(roll - index))
+}
+
+export const memoryPath = function (type: string, index: number): string {
+  const src = require.context('@/assets/', false)
+  return src('./' + path)
 }
 
 export class Hexagon {
@@ -72,16 +89,41 @@ export class Hexagon {
 
 export class Game {
   hexagons: Hexagon[]
-  workers: number = 2
-  silvers: number = 4
-  dice: number = 6
+  workers: number
+  silvers: number
+  dice: number
   selectedColor?: string
-  state: GameState = GameState.RollOrBuy
+  state: GameState
   reward?: Reward
-  regionCompleted: boolean = false
+  regionCompleted: boolean
+  photosUnlocked: number
+  videosUnlocked: number
+  daresCompleted: number
 
-  constructor(hexagons: Hexagon[]) {
+  constructor(
+    hexagons: Hexagon[],
+    workers: number = 2,
+    silvers: number = 4,
+    dice: number = 6,
+    selectedColor: string | undefined = undefined,
+    state: GameState = GameState.RollOrBuy,
+    reward: Reward | undefined = undefined,
+    regionCompleted: boolean = false,
+    photosUnlocked: number = 0,
+    videosUnlocked: number = 0,
+    daresCompleted: number = 0,
+  ) {
     this.hexagons = hexagons
+    this.workers = workers
+    this.silvers = silvers
+    this.dice = dice
+    this.selectedColor = selectedColor
+    this.state = state
+    this.reward = reward
+    this.regionCompleted = regionCompleted
+    this.photosUnlocked = photosUnlocked
+    this.videosUnlocked = videosUnlocked
+    this.daresCompleted = daresCompleted
   }
 
   colorAvailable(color: string): boolean {
@@ -135,6 +177,7 @@ export class Game {
       this.workers += 2
     } else if (this.reward === Reward.Silver) {
       this.silvers += 1
+      this.daresCompleted += 1
     } else if (this.reward === Reward.Memory) {
       console.log('Memory reward')
     }

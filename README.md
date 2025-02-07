@@ -8,3 +8,4 @@
 - Show videos
 - Something for green?
 - Game end
+- Save game state
