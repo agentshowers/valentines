@@ -4,7 +4,7 @@ import DiceRoller from './game/DiceRoller.vue'
 import BuyTile from './game/BuyTile.vue'
 
 import { ref } from 'vue'
-import { Game, GameState, HexagonState } from '@/gameLogic'
+import { Game, GameState, HexagonState, Reward } from '@/gameLogic'
 
 const game = ref(Game.newGame())
 
@@ -87,9 +87,15 @@ function rollDice() {
       <HexagonTile :color="game.selectedColor!" :state="HexagonState.Filled" />
       Place the tile on the board
     </div>
-    <div v-else-if="game.state === GameState.TileReward">
-      Get a reward
-      <button @click="game.acceptReward()">Yay</button>
+    <div v-else-if="game.state === GameState.TileReward" class="tile-reward">
+      <div v-if="game.reward === Reward.Coin">You got a coin!</div>
+      <div v-else-if="game.reward === Reward.Workers">You got 2 workers!</div>
+      <div v-else-if="game.reward === Reward.Memory">You unlocked a memory!</div>
+      <button @click="game.acceptTileReward()">Yay</button>
+    </div>
+    <div v-else-if="game.state === GameState.RegionReward" class="region-reward">
+      <div>You completed a region!</div>
+      <button @click="game.acceptRegionReward()">Yay</button>
     </div>
   </div>
   <div class="game-state">
@@ -126,6 +132,20 @@ function rollDice() {
 }
 
 .tile-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.tile-reward {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.region-reward {
   display: flex;
   flex-direction: column;
   align-items: center;
