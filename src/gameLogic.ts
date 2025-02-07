@@ -71,6 +71,11 @@ export class Game {
     this.hexagons = hexagons
   }
 
+  rollDice() {
+    this.dice = Math.floor(Math.random() * 6) + 1
+    console.log('rolled a', this.dice)
+  }
+
   canBuy(color: string): boolean {
     return (
       this.coins >= 2 &&

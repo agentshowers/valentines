@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import { useTemplateRef, watchEffect } from 'vue'
+import { Game } from '@/gameLogic'
 
-const { allowRoll, diceValue } = defineProps<{
+const { game, allowRoll } = defineProps<{
+  game: Game
   allowRoll: boolean
-  diceValue: number
 }>()
-
-defineEmits(['rollDice'])
 
 const dice = useTemplateRef('dice')
 
 watchEffect(() => {
-  updateDice(diceValue)
+  updateDice(game.dice)
 })
 
 function updateDice(value: number) {
@@ -65,7 +64,7 @@ function updateDice(value: number) {
       </div>
     </div>
     <div>
-      <button v-if="allowRoll" @click="$emit('rollDice')">Roll Dice</button>
+      <button v-if="allowRoll" @click="game.rollDice()">Roll Dice</button>
     </div>
   </div>
 </template>

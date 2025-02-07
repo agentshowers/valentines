@@ -7,12 +7,6 @@ import { ref } from 'vue'
 import { Game, GameState, HexagonState, Reward } from '@/gameLogic'
 
 const game = ref(Game.newGame())
-
-function rollDice() {
-  console.log('rollDice')
-  game.value.dice = Math.floor(Math.random() * 6) + 1
-  console.log('rolled a', game.value.dice)
-}
 </script>
 
 <template>
@@ -66,7 +60,7 @@ function rollDice() {
   <div class="game-controls">
     <div v-if="game.state === GameState.RollOrBuy" class="roll-or-buy">
       <div class="dice-area">
-        <DiceRoller @rollDice="rollDice" :allowRoll="true" :diceValue="game.dice" />
+        <DiceRoller :allowRoll="true" :game="game" />
       </div>
       <div class="buy-area">
         <div>
