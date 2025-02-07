@@ -1,11 +1,8 @@
 # TODO
 
-- Can select unplaceable dice styles
-- Location of coins/workers
 - Button alignment
 - Tile picker style
-- Favicon
-- Page title
+- Button styles
 - Dares for yellow
 - Show memories
 - Show videos

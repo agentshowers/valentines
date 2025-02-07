@@ -43,6 +43,7 @@ defineProps<{
 .container {
   display: flex;
   gap: 25px;
+  justify-content: center;
 }
 
 .dice-area {

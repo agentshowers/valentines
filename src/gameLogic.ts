@@ -14,14 +14,14 @@ export enum GameState {
 }
 
 export enum Reward {
-  Coin,
+  Silver,
   Workers,
   Memory,
 }
 
 const REWARDS: Record<string, Reward> = {
   blue: Reward.Memory,
-  yellow: Reward.Coin,
+  yellow: Reward.Silver,
   green: Reward.Workers,
 }
 
@@ -32,6 +32,15 @@ const REGIONS: Array<Array<number>> = [
   [9, 13, 14],
   [11, 15, 17, 18],
 ]
+
+const INDEX_COLORS: Record<number, string> = {
+  1: 'yellow',
+  2: 'blue',
+  3: 'green',
+  4: 'yellow',
+  5: 'blue',
+  6: 'green',
+}
 
 const minTransformations = function (roll: number, index: number): number {
   return Math.min(Math.abs(roll - index), 6 - Math.abs(roll - index))
@@ -64,7 +73,7 @@ export class Hexagon {
 export class Game {
   hexagons: Hexagon[]
   workers: number = 2
-  coins: number = 4
+  silvers: number = 4
   dice: number = 6
   selectedColor?: string
   state: GameState = GameState.RollOrBuy
@@ -75,6 +84,10 @@ export class Game {
     this.hexagons = hexagons
   }
 
+  colorAvailable(color: string): boolean {
+    return this.hexagons.some((hex) => hex.color === color && !hex.filled)
+  }
+
   rollDice() {
     this.dice = Math.floor(Math.random() * 6) + 1
     console.log('rolled a', this.dice)
@@ -82,30 +95,25 @@ export class Game {
   }
 
   canBuy(color: string): boolean {
-    return (
-      this.coins >= 2 &&
-      this.hexagons.filter((hex) => hex.color === color && !hex.filled).length > 0
-    )
+    return this.silvers >= 2 && this.colorAvailable(color)
   }
 
   buyTile(color: string) {
-    this.coins -= 2
+    this.silvers -= 2
     this.selectedColor = color
     this.state = GameState.TilePlacement
   }
 
   canPick(index: number): boolean {
+    const color = INDEX_COLORS[index]
+    if (!this.colorAvailable(color)) {
+      return false
+    }
     return minTransformations(this.dice, index) <= this.workers
   }
 
   pickTile(index: number) {
-    if (index === 1 || index === 4) {
-      this.selectedColor = 'yellow'
-    } else if (index === 2 || index === 5) {
-      this.selectedColor = 'blue'
-    } else {
-      this.selectedColor = 'green'
-    }
+    this.selectedColor = INDEX_COLORS[index]
     this.workers -= minTransformations(this.dice, index)
     this.state = GameState.TilePlacement
   }
@@ -125,8 +133,8 @@ export class Game {
   acceptTileReward() {
     if (this.reward === Reward.Workers) {
       this.workers += 2
-    } else if (this.reward === Reward.Coin) {
-      this.coins += 1
+    } else if (this.reward === Reward.Silver) {
+      this.silvers += 1
     } else if (this.reward === Reward.Memory) {
       console.log('Memory reward')
     }

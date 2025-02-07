@@ -56,6 +56,16 @@ const game = ref(Game.newGame())
       </div>
     </div>
   </div>
+  <div class="game-state">
+    <div class="resource">
+      <img alt="Workers" src="../assets/images/worker.png" />
+      {{ game.workers }}
+    </div>
+    <div class="resource">
+      <img alt="Silver" src="../assets/images/silver.png" />
+      {{ game.silvers }}
+    </div>
+  </div>
   <div class="game-controls">
     <div
       v-if="game.state === GameState.RollOrBuy || game.state === GameState.TileSelection"
@@ -68,7 +78,7 @@ const game = ref(Game.newGame())
       Place the tile on the board
     </div>
     <div v-else-if="game.state === GameState.TileReward" class="tile-reward">
-      <div v-if="game.reward === Reward.Coin">You got a coin!</div>
+      <div v-if="game.reward === Reward.Silver">You got a silver!</div>
       <div v-else-if="game.reward === Reward.Workers">You got 2 workers!</div>
       <div v-else-if="game.reward === Reward.Memory">You unlocked a memory!</div>
       <button @click="game.acceptTileReward()">Yay</button>
@@ -78,15 +88,29 @@ const game = ref(Game.newGame())
       <button @click="game.acceptRegionReward()">Yay</button>
     </div>
   </div>
-  <div class="game-state">
-    <p>Workers: {{ game.workers }}</p>
-    <p>Coins: {{ game.coins }}</p>
-  </div>
 </template>
 
 <style scoped>
 .game-board {
   margin-top: 20px;
+}
+
+.game-state {
+  display: flex;
+  margin-top: -50px;
+  justify-content: space-between;
+  padding: 0px 15px;
+}
+
+.resource {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: x-large;
+}
+
+.resource img {
+  width: 45px;
 }
 
 .game-controls {
@@ -116,12 +140,5 @@ const game = ref(Game.newGame())
   flex-direction: column;
   align-items: center;
   gap: 20px;
-}
-
-.game-state {
-  display: flex;
-  position: absolute;
-  bottom: 10%;
-  gap: 25px;
 }
 </style>
