@@ -1,116 +1,100 @@
 <script setup lang="ts">
 import HexagonTile from './game/HexagonTile.vue'
 import DiceRoller from './game/DiceRoller.vue'
+import BuyTile from './game/BuyTile.vue'
+
 import { ref } from 'vue'
+import { Game, GameState, HexagonState } from '@/gameLogic'
 
-class Hexagon {
-  color: string
-  filled: boolean
+const game = ref(Game.newGame())
 
-  constructor(color: string, filled: boolean = false) {
-    this.color = color
-    this.filled = filled
-  }
-}
-
-class State {
-  hexagons: Hexagon[]
-  workers: number
-  reRolls: number
-  coins: number
-  dice: number
-
-  constructor(hexagons: Hexagon[], workers: number, reRolls: number, coins: number, dice: number) {
-    this.hexagons = hexagons
-    this.workers = workers
-    this.reRolls = reRolls
-    this.coins = coins
-    this.dice = dice
-  }
-
-  static defaultState() {
-    return new State(
-      [
-        new Hexagon('blue'),
-        new Hexagon('blue'),
-        new Hexagon('yellow', true),
-        new Hexagon('blue', true),
-        new Hexagon('blue'),
-        new Hexagon('yellow'),
-        new Hexagon('yellow'),
-        new Hexagon('yellow'),
-        new Hexagon('yellow'),
-        new Hexagon('green'),
-        new Hexagon('yellow'),
-        new Hexagon('blue'),
-        new Hexagon('yellow'),
-        new Hexagon('green'),
-        new Hexagon('green'),
-        new Hexagon('blue'),
-        new Hexagon('yellow'),
-        new Hexagon('blue'),
-        new Hexagon('blue'),
-      ],
-      0,
-      0,
-      0,
-      6,
-    )
-  }
-}
-
-const state = ref(State.defaultState())
-
-function rollDice(reRoll: boolean) {
-  console.log('rollDice', reRoll)
-  state.value.dice = Math.floor(Math.random() * 6) + 1
+function rollDice() {
+  console.log('rollDice')
+  game.value.dice = Math.floor(Math.random() * 6) + 1
+  console.log('rolled a', game.value.dice)
 }
 </script>
 
 <template>
   <div class="game-board">
     <div class="hexagon-row row-3">
-      <div v-for="(hexagon, index) in state.hexagons.slice(0, 3)" :key="index">
-        <HexagonTile v-bind="hexagon" />
+      <div v-for="(hexagon, index) in game.hexagons.slice(0, 3)" :key="index">
+        <HexagonTile
+          :color="hexagon.color"
+          :state="hexagon.displayState(game.selectedColor)"
+          @place-tile="game.placeTile(index)"
+        />
       </div>
     </div>
     <div class="hexagon-row row-4">
-      <div v-for="(hexagon, index) in state.hexagons.slice(3, 7)" :key="index + 3">
-        <HexagonTile v-bind="hexagon" />
+      <div v-for="(hexagon, index) in game.hexagons.slice(3, 7)" :key="index + 3">
+        <HexagonTile
+          :color="hexagon.color"
+          :state="hexagon.displayState(game.selectedColor)"
+          @place-tile="game.placeTile(index + 3)"
+        />
       </div>
     </div>
     <div class="hexagon-row row-5">
-      <div v-for="(hexagon, index) in state.hexagons.slice(7, 12)" :key="index + 7">
-        <HexagonTile v-bind="hexagon" />
+      <div v-for="(hexagon, index) in game.hexagons.slice(7, 12)" :key="index + 7">
+        <HexagonTile
+          :color="hexagon.color"
+          :state="hexagon.displayState(game.selectedColor)"
+          @place-tile="game.placeTile(index + 7)"
+        />
       </div>
     </div>
     <div class="hexagon-row row-4">
-      <div v-for="(hexagon, index) in state.hexagons.slice(12, 16)" :key="index + 12">
-        <HexagonTile v-bind="hexagon" />
+      <div v-for="(hexagon, index) in game.hexagons.slice(12, 16)" :key="index + 12">
+        <HexagonTile
+          :color="hexagon.color"
+          :state="hexagon.displayState(game.selectedColor)"
+          @place-tile="game.placeTile(index + 12)"
+        />
       </div>
     </div>
     <div class="hexagon-row row-3">
-      <div v-for="(hexagon, index) in state.hexagons.slice(16, 19)" :key="index + 16">
-        <HexagonTile v-bind="hexagon" />
+      <div v-for="(hexagon, index) in game.hexagons.slice(16, 19)" :key="index + 16">
+        <HexagonTile
+          :color="hexagon.color"
+          :state="hexagon.displayState(game.selectedColor)"
+          @place-tile="game.placeTile(index + 16)"
+        />
       </div>
     </div>
   </div>
   <div class="game-controls">
-    <div class="dice-area">
-      <DiceRoller
-        @rollDice="rollDice"
-        :allowRoll="true"
-        :diceValue="state.dice"
-        :re-rolls="state.reRolls"
-      />
+    <div v-if="game.state === GameState.RollOrBuy" class="roll-or-buy">
+      <div class="dice-area">
+        <DiceRoller @rollDice="rollDice" :allowRoll="true" :diceValue="game.dice" />
+      </div>
+      <div class="buy-area">
+        <div>
+          <BuyTile :color="'yellow'" :game="game" />
+        </div>
+        <div>
+          <BuyTile :color="'blue'" :game="game" />
+        </div>
+        <div>
+          <BuyTile :color="'green'" :game="game" />
+        </div>
+      </div>
     </div>
-    <div class="pick-area">Pick</div>
-    <div class="buy-area">Buy</div>
+    <div v-else-if="game.state === GameState.TileSelection">
+      <div class="pick-area">Pick</div>
+    </div>
+    <div v-else-if="game.state === GameState.TilePlacement" class="tile-placement">
+      <HexagonTile :color="game.selectedColor!" :state="HexagonState.Filled" />
+      Place the tile on the board
+    </div>
+    <div v-else-if="game.state === GameState.TileReward">
+      Get a reward
+      <button @click="game.acceptReward()">Yay</button>
+    </div>
   </div>
   <div class="game-state">
-    <p>Workers: {{ state.workers }}</p>
-    <p>Re-rolls: {{ state.reRolls }}</p>
-    <p>Coins: {{ state.coins }}</p>
+    <p>Workers: {{ game.workers }}</p>
+    <p>Coins: {{ game.coins }}</p>
   </div>
 </template>
 
@@ -118,19 +102,36 @@ function rollDice(reRoll: boolean) {
 .game-board {
   margin-top: 20px;
 }
+
 .game-controls {
-  display: flex;
   margin-top: 50px;
 }
+
+.roll-or-buy {
+  display: flex;
+  gap: 25px;
+}
+
 .dice-area {
   width: 25%;
 }
+
 .pick-area {
   width: 50%;
 }
+
 .buy-area {
-  width: 25%;
+  display: flex;
+  gap: 20px;
 }
+
+.tile-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
 .game-state {
   display: flex;
   position: absolute;

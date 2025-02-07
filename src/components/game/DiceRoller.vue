@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { useTemplateRef, watchEffect } from 'vue'
 
-const { allowRoll, diceValue, reRolls } = defineProps<{
+const { allowRoll, diceValue } = defineProps<{
   allowRoll: boolean
   diceValue: number
-  reRolls: number
 }>()
 
 defineEmits(['rollDice'])
@@ -19,7 +18,6 @@ function updateDice(value: number) {
   if (!dice.value) {
     return
   }
-  console.log('updateDice', value)
   for (let i = 1; i <= 6; i++) {
     dice.value.classList.remove('show-' + i)
     if (value === i) {
@@ -67,22 +65,22 @@ function updateDice(value: number) {
       </div>
     </div>
     <div>
-      <button v-if="allowRoll" @click="$emit('rollDice', false)">Roll Dice</button>
-      <button v-else-if="reRolls > 0" @click="$emit('rollDice', true)">Re-roll Dice</button>
+      <button v-if="allowRoll" @click="$emit('rollDice')">Roll Dice</button>
     </div>
   </div>
 </template>
 
 <style>
 :root {
-  --ratio: 0.8;
+  --ratio: 0.75;
 }
 
 .dice-container {
   display: flex;
   flex-direction: column;
-  align-items: left;
-  gap: 30px;
+  align-items: center;
+  gap: 25px;
+  padding-top: 5px;
 }
 
 .dice {
