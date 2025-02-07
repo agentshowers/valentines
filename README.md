@@ -1,11 +1,10 @@
 # TODO
 
-- Button alignment
+- Fix bug with asset links
 - Tile picker style
 - Button styles
-- Dares for yellow
-- Show memories
-- Show videos
-- Something for green?
 - Game end
+- Update dares/photos/videos
+- Something for green?
+
 - Save game state
