@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import HexagonTile from './HexagonTile.vue'
 import DiceRoller from './DiceRoller.vue'
 import BuyTile from './BuyTile.vue'
 import { Game, GameState } from '@/gameLogic'
