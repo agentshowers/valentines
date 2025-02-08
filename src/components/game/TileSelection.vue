@@ -43,7 +43,6 @@ defineProps<{
 <style scoped>
 .selection-container {
   display: flex;
-  justify-content: space-between;
   padding: 0px 20px;
   height: inherit;
 }
@@ -55,6 +54,7 @@ defineProps<{
 .tile-buying {
   display: flex;
   gap: 20px;
+  margin-left: 50px;
 }
 
 .tile-picking {

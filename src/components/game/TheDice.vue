@@ -4,6 +4,7 @@ import { useTemplateRef, watchEffect } from 'vue'
 const props = defineProps<{
   value: number
   ratio: number
+  disabled?: boolean
 }>()
 
 const dice = useTemplateRef('dice')
@@ -28,37 +29,37 @@ function updateDice(value: number) {
 <template>
   <div ref="dice" class="dice">
     <div class="side one">
-      <div class="dot one-1"></div>
+      <div :class="'dot one-1' + (disabled ? ' disabled' : '')"></div>
     </div>
     <div class="side two">
-      <div class="dot two-1"></div>
-      <div class="dot two-2"></div>
+      <div :class="'dot two-1' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot two-2' + (disabled ? ' disabled' : '')"></div>
     </div>
     <div class="side three">
-      <div class="dot three-1"></div>
-      <div class="dot three-2"></div>
-      <div class="dot three-3"></div>
+      <div :class="'dot three-1' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot three-2' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot three-3' + (disabled ? ' disabled' : '')"></div>
     </div>
     <div class="side four">
-      <div class="dot four-1"></div>
-      <div class="dot four-2"></div>
-      <div class="dot four-3"></div>
-      <div class="dot four-4"></div>
+      <div :class="'dot four-1' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot four-2' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot four-3' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot four-4' + (disabled ? ' disabled' : '')"></div>
     </div>
     <div class="side five">
-      <div class="dot five-1"></div>
-      <div class="dot five-2"></div>
-      <div class="dot five-3"></div>
-      <div class="dot five-4"></div>
-      <div class="dot five-5"></div>
+      <div :class="'dot five-1' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot five-2' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot five-3' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot five-4' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot five-5' + (disabled ? ' disabled' : '')"></div>
     </div>
     <div class="side six">
-      <div class="dot six-1"></div>
-      <div class="dot six-2"></div>
-      <div class="dot six-3"></div>
-      <div class="dot six-4"></div>
-      <div class="dot six-5"></div>
-      <div class="dot six-6"></div>
+      <div :class="'dot six-1' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot six-2' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot six-3' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot six-4' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot six-5' + (disabled ? ' disabled' : '')"></div>
+      <div :class="'dot six-6' + (disabled ? ' disabled' : '')"></div>
     </div>
   </div>
 </template>
@@ -82,6 +83,11 @@ function updateDice(value: number) {
   border-radius: calc(v-bind(ratio) * 15px);
   background-color: #f25f5c;
   box-shadow: inset 2px 2px #d90429;
+}
+
+.dot.disabled {
+  background-color: #e5e5e5;
+  box-shadow: inset 2px 2px #bcbcbc;
 }
 
 .side {

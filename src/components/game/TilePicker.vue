@@ -19,11 +19,12 @@ function pickTile() {
 <template>
   <div class="tile-picker" @click="pickTile()">
     <div class="picker-dice">
-      <TheDice :value="value" :ratio="0.3" />
+      <TheDice :value="value" :ratio="0.3" :disabled="!game.canPick(value)" />
     </div>
     <HexagonTile
       :color="INDEX_COLORS[value]"
       :state="game.canPick(value) ? HexagonState.Filled : HexagonState.Empty"
+      :custom-class="'picker'"
     />
   </div>
 </template>
@@ -37,7 +38,7 @@ function pickTile() {
   position: relative;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translateY(-20%);
   z-index: 1;
 }
 </style>

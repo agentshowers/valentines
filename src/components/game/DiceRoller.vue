@@ -9,7 +9,7 @@ const { game, allowRoll } = defineProps<{
 </script>
 
 <template>
-  <div class="dice-container">
+  <div :class="'dice-container' + (allowRoll ? '' : ' extra-padding')">
     <TheDice :value="game.dice" :ratio="0.75" />
     <div>
       <button v-if="allowRoll" @click="game.rollDice()">Roll Dice</button>
@@ -29,5 +29,9 @@ const { game, allowRoll } = defineProps<{
   justify-content: space-between;
   padding-top: 10px;
   height: 100%;
+}
+
+.extra-padding {
+  padding-top: 30px;
 }
 </style>

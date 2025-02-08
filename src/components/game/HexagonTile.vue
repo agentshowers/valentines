@@ -3,6 +3,7 @@ import { HexagonState } from '@/assets/gameLogic'
 const props = defineProps<{
   color: string
   state: HexagonState
+  customClass?: string
 }>()
 
 const emit = defineEmits(['placeTile'])
@@ -27,7 +28,7 @@ function handleClick() {
 
 <template>
   <div
-    class="hexagon-tile"
+    :class="'hexagon-tile ' + (customClass ? customClass : '')"
     :style="{ opacity: opacity(), backgroundColor: color }"
     @click="handleClick"
   ></div>
@@ -40,5 +41,10 @@ function handleClick() {
   height: calc(var(--hex-width) * 1.1547);
   font-size: initial; /* we reset the font-size if we want to add some content */
   clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+}
+
+.picker {
+  width: 50px;
+  height: calc(50px * 1.1547);
 }
 </style>
