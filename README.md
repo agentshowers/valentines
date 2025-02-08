@@ -1,10 +1,10 @@
 # TODO
 
-- Fix bug with asset links
 - Tile picker style
 - Button styles
 - Game end
 - Update dares/photos/videos
-- Something for green?
-
+- Something for green? Questions?
 - Save game state
+
+- Show photo/video in a modal
