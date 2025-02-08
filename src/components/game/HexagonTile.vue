@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { HexagonState } from '@/gameLogic'
+import { HexagonState } from '@/assets/gameLogic'
 const props = defineProps<{
   color: string
   state: HexagonState

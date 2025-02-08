@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import HexagonTile from './HexagonTile.vue'
-import { Game, HexagonState } from '@/gameLogic'
+import { Game, HexagonState } from '@/assets/gameLogic'
 
 defineProps<{
   color: string

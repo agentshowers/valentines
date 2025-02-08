@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Game } from '@/gameLogic'
+import { Game } from '@/assets/gameLogic'
 import PhotoReward from './PhotoReward.vue'
 import VideoReward from './VideoReward.vue'
 

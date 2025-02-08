@@ -4,7 +4,7 @@ import HexagonTile from './game/HexagonTile.vue'
 import RewardsList from './game/RewardsList.vue'
 import TileSelection from './game/TileSelection.vue'
 import { ref } from 'vue'
-import { Game, GameState, HexagonState, Reward, DARES } from '@/gameLogic'
+import { Game, GameState, HexagonState, Reward, DARES } from '@/assets/gameLogic'
 
 const game = ref(Game.newGame())
 </script>

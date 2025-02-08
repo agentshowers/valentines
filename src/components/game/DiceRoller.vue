@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTemplateRef, watchEffect } from 'vue'
-import { Game } from '@/gameLogic'
+import { Game } from '@/assets/gameLogic'
 
 const { game, allowRoll } = defineProps<{
   game: Game

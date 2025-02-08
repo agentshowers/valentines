@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import DiceRoller from './DiceRoller.vue'
 import BuyTile from './BuyTile.vue'
-import { Game, GameState } from '@/gameLogic'
+import { Game, GameState } from '@/assets/gameLogic'
 
 defineProps<{
   game: Game
