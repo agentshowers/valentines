@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import DiceRoller from './DiceRoller.vue'
 import BuyTile from './BuyTile.vue'
-import TheDice from './TheDice.vue'
+import TilePicker from './TilePicker.vue'
 import { Game, GameState } from '@/assets/gameLogic'
 
 defineProps<{
@@ -10,7 +10,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="container">
+  <div class="selection-container">
     <div class="dice-area">
       <DiceRoller :allowRoll="game.state === GameState.RollOrBuy" :game="game" />
     </div>
@@ -26,26 +26,22 @@ defineProps<{
       </div>
     </div>
     <div v-else class="tile-picking">
-      <div class="row">
-        <button :disabled="!game.canPick(1)" @click="game.pickTile(1)">Pick Yellow</button>
-        <button :disabled="!game.canPick(2)" @click="game.pickTile(2)">Pick Blue</button>
-        <button :disabled="!game.canPick(3)" @click="game.pickTile(3)">Pick Green</button>
+      <div class="tile-picker-row">
+        <TilePicker :game="game" :value="1" />
+        <TilePicker :game="game" :value="2" />
+        <TilePicker :game="game" :value="3" />
       </div>
-      <div class="row">
-        <button :disabled="!game.canPick(4)" @click="game.pickTile(4)">Pick Yellow</button>
-        <button :disabled="!game.canPick(5)" @click="game.pickTile(5)">Pick Blue</button>
-        <button :disabled="!game.canPick(6)" @click="game.pickTile(6)">Pick Green</button>
+      <div class="tile-picker-row">
+        <TilePicker :game="game" :value="4" />
+        <TilePicker :game="game" :value="5" />
+        <TilePicker :game="game" :value="6" />
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-:root {
-  --dice-ratio: 0.2;
-}
-
-.container {
+.selection-container {
   display: flex;
   justify-content: space-between;
   padding: 0px 20px;
@@ -62,13 +58,13 @@ defineProps<{
 }
 
 .tile-picking {
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 5px;
 }
 
-.row {
+.tile-picker-row {
   display: flex;
-  gap: 25px;
 }
 </style>

@@ -61,4 +61,10 @@ defineProps<{
 .game-board {
   margin-top: 20px;
 }
+
+.hexagon-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: calc(var(--hex-margin) - var(--hex-width) * 0.2885);
+}
 </style>

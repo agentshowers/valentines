@@ -33,4 +33,12 @@ function handleClick() {
   ></div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.hexagon-tile {
+  width: var(--hex-width);
+  margin: var(--hex-margin);
+  height: calc(var(--hex-width) * 1.1547);
+  font-size: initial; /* we reset the font-size if we want to add some content */
+  clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+}
+</style>

@@ -111,4 +111,9 @@ const game = ref(Game.newGame())
   align-items: center;
   gap: 20px;
 }
+
+.centered-text {
+  display: flex;
+  justify-content: center;
+}
 </style>

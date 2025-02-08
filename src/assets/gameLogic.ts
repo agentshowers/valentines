@@ -33,7 +33,7 @@ const REGIONS: Array<Array<number>> = [
   [11, 15, 17, 18],
 ]
 
-const INDEX_COLORS: Record<number, string> = {
+export const INDEX_COLORS: Record<number, string> = {
   1: 'yellow',
   2: 'blue',
   3: 'green',
