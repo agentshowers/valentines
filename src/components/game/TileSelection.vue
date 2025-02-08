@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import DiceRoller from './DiceRoller.vue'
 import BuyTile from './BuyTile.vue'
+import TheDice from './TheDice.vue'
 import { Game, GameState } from '@/assets/gameLogic'
 
 defineProps<{
@@ -40,6 +41,10 @@ defineProps<{
 </template>
 
 <style scoped>
+:root {
+  --dice-ratio: 0.2;
+}
+
 .container {
   display: flex;
   justify-content: space-between;
