@@ -3,10 +3,18 @@ import GameBoard from './game/GameBoard.vue'
 import HexagonTile from './game/HexagonTile.vue'
 import RewardsList from './game/RewardsList.vue'
 import TileSelection from './game/TileSelection.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { Game, GameState, HexagonState, Reward, DARES } from '@/assets/gameLogic'
 
 const game = ref(Game.newGame())
+
+watch(
+  game,
+  (newGame) => {
+    localStorage.setItem('game', JSON.stringify(newGame))
+  },
+  { deep: true },
+)
 </script>
 
 <template>

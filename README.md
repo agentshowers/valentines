@@ -1,6 +1,5 @@
 # TODO
 
-- Tile picker style
 - Button styles
 - Game end
 - Update dares/photos/videos

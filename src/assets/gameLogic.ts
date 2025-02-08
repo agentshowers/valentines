@@ -189,7 +189,15 @@ export class Game {
     this.state = GameState.RollOrBuy
   }
 
-  static newGame() {
+  static loadGame(): Game {
+    const game = localStorage.getItem('game')
+    if (game) {
+      return JSON.parse(game)
+    }
+    return Game.newGame()
+  }
+
+  static newGame(): Game {
     return new Game([
       new Hexagon('blue'),
       new Hexagon('blue'),
