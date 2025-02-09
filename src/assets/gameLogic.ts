@@ -138,7 +138,7 @@ export class Game {
   constructor(
     hexagons: Hexagon[],
     workers: number = 2,
-    silvers: number = 4,
+    silvers: number = 50,
     dice: number = 6,
     selectedColor: string | undefined = undefined,
     state: GameState = GameState.RollOrBuy,

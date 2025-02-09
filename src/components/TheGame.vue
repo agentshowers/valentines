@@ -5,6 +5,7 @@ import RewardsList from './game/RewardsList.vue'
 import TileSelection from './game/TileSelection.vue'
 import { watch } from 'vue'
 import { Game, GameState, HexagonState, Reward, DARES } from '@/assets/gameLogic'
+import { PHOTOS, VIDEOS, PHOTO_CAPTIONS, VIDEO_CAPTIONS } from '@/assets/memories'
 
 const { game } = defineProps<{
   game: Game
@@ -50,14 +51,29 @@ watch(
       <div v-else-if="game.reward === Reward.Workers">Reward: 2 workers</div>
       <div v-else-if="game.reward === Reward.Memory" class="reward-text">
         <p class="centered-text">You've unlocked a new memory!</p>
+        <p class="centered-text">
+          <a :href="PHOTOS[game.photosUnlocked]" target="_blank">{{
+            PHOTO_CAPTIONS[game.photosUnlocked]
+          }}</a>
+        </p>
       </div>
-      <button @click="game.acceptTileReward()" class="button reward-button">Nice!</button>
+      <button @click="game.acceptTileReward()" class="button reward-button">
+        <span v-if="game.reward === Reward.Silver">Let's go!</span>
+        <span v-else-if="game.reward === Reward.Workers">Nice!</span>
+        <span v-else-if="game.reward === Reward.Memory">Awww</span>
+        <span v-else>Accept Reward</span>
+      </button>
     </div>
     <div v-else-if="game.state === GameState.RegionReward" class="region-reward">
       <div class="reward-text">
         <p class="centered-text">You completed a region and unlocked a new memory!</p>
+        <p class="centered-text">
+          <a :href="VIDEOS[game.videosUnlocked]" target="_blank">{{
+            VIDEO_CAPTIONS[game.videosUnlocked]
+          }}</a>
+        </p>
       </div>
-      <button @click="game.acceptRegionReward()" class="button reward-button">Oooh!</button>
+      <button @click="game.acceptRegionReward()" class="button reward-button">😍😘🥰</button>
     </div>
   </div>
   <RewardsList :game="game" />

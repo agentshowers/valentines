@@ -22,8 +22,8 @@ defineProps<{
         <PhotoReward :game="game" :index="5" />
       </div>
       <div class="row">
+        <PhotoReward :game="game" :index="6" />
         <PhotoReward :game="game" :index="7" />
-        <PhotoReward :game="game" :index="8" />
       </div>
     </div>
     <div class="column">
