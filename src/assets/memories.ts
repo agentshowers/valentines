@@ -34,3 +34,20 @@ export const VIDEO_CAPTIONS: Array<string> = [
   'Who are you?',
   'I believe...',
 ]
+
+export const QUESTIONS: Array<string> = [
+  'What do you love most about our relationship?',
+  'What do you think is our biggest strength as a couple?',
+  'What would you like us to do more often together?',
+]
+
+export const DARES: Array<string> = [
+  'Mimic the Netflix logo',
+  "Complete the song: 🎶 It's murder on the dance floor...",
+  '30 seconds of chest cuddles',
+  'Take a cute selfie',
+  'Give me a kiss',
+  'Play a song in Spotify and dance together',
+  'Make your move - grab some butt',
+  'Show a photo of us that you really love',
+]

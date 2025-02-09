@@ -43,18 +43,6 @@ export const INDEX_COLORS: Record<number, string> = {
   6: 'green',
 }
 
-// TODO: Replace the dares with actual dares
-export const DARES: Array<string> = [
-  'The 1st thing',
-  'The 2nd thing',
-  'The 3rd thing',
-  'The 4th thing',
-  'The 5th thing',
-  'The 6th thing',
-  'The 7th thing',
-  'The 8th thing',
-]
-
 const minTransformations = function (roll: number, index: number): number {
   return Math.min(Math.abs(roll - index), 6 - Math.abs(roll - index))
 }
@@ -99,6 +87,7 @@ export function loadGame(): Game | undefined {
         photosUnlocked,
         videosUnlocked,
         daresCompleted,
+        questionsCompleted,
       } = JSON.parse(game)
       return new Game(
         hexagons.map(
@@ -114,6 +103,7 @@ export function loadGame(): Game | undefined {
         photosUnlocked,
         videosUnlocked,
         daresCompleted,
+        questionsCompleted,
       )
     }
     return undefined
@@ -135,6 +125,7 @@ export class Game {
   photosUnlocked: number
   videosUnlocked: number
   daresCompleted: number
+  questionsCompleted: number
 
   constructor(
     hexagons: Hexagon[],
@@ -148,6 +139,7 @@ export class Game {
     photosUnlocked: number = 0,
     videosUnlocked: number = 0,
     daresCompleted: number = 0,
+    questionsCompleted: number = 0,
   ) {
     this.hexagons = hexagons
     this.workers = workers
@@ -160,6 +152,7 @@ export class Game {
     this.photosUnlocked = photosUnlocked
     this.videosUnlocked = videosUnlocked
     this.daresCompleted = daresCompleted
+    this.questionsCompleted = questionsCompleted
   }
 
   colorAvailable(color: string): boolean {
@@ -210,6 +203,7 @@ export class Game {
   acceptTileReward() {
     if (this.reward === Reward.Workers) {
       this.workers += 2
+      this.questionsCompleted += 1
     } else if (this.reward === Reward.Silver) {
       this.silvers += 1
       this.daresCompleted += 1

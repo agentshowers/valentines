@@ -4,8 +4,8 @@ import HexagonTile from './game/HexagonTile.vue'
 import RewardsList from './game/RewardsList.vue'
 import TileSelection from './game/TileSelection.vue'
 import { watch } from 'vue'
-import { Game, GameState, HexagonState, Reward, DARES } from '@/assets/gameLogic'
-import { PHOTOS, VIDEOS, PHOTO_CAPTIONS, VIDEO_CAPTIONS } from '@/assets/memories'
+import { Game, GameState, HexagonState, Reward } from '@/assets/gameLogic'
+import { PHOTOS, VIDEOS, PHOTO_CAPTIONS, VIDEO_CAPTIONS, DARES, QUESTIONS } from '@/assets/memories'
 
 const { game } = defineProps<{
   game: Game
@@ -48,7 +48,10 @@ watch(
         <p class="centered-text">{{ DARES[game.daresCompleted] }}</p>
         <p class="centered-text">Reward: 1 silver</p>
       </div>
-      <div v-else-if="game.reward === Reward.Workers">Reward: 2 workers</div>
+      <div v-else-if="game.reward === Reward.Workers" class="reward-text">
+        <p class="centered-text">{{ QUESTIONS[game.questionsCompleted] }}</p>
+        <p class="centered-text">Reward: 1 silver</p>
+      </div>
       <div v-else-if="game.reward === Reward.Memory" class="reward-text">
         <p class="centered-text">You've unlocked a new memory!</p>
         <p class="centered-text">
