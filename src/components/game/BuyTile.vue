@@ -11,7 +11,7 @@ defineProps<{
 <template>
   <div class="buy-area">
     <HexagonTile :color="color" :state="HexagonState.Filled" />
-    <button :disabled="!game.canBuy(color)" @click="game.buyTile(color)">Buy</button>
+    <button :disabled="!game.canBuy(color)" @click="game.buyTile(color)" class="button">Buy</button>
   </div>
 </template>
 

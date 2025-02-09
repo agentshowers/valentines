@@ -82,6 +82,46 @@ export class Hexagon {
   }
 }
 
+export function loadGame(): Game | undefined {
+  try {
+    const game = localStorage.getItem('game')
+    if (game) {
+      const {
+        hexagons,
+        workers,
+        silvers,
+        dice,
+        selectedColor,
+        state,
+        reward,
+        regionCompleted,
+        photosUnlocked,
+        videosUnlocked,
+        daresCompleted,
+      } = JSON.parse(game)
+      return new Game(
+        hexagons.map(
+          ({ color, filled }: { color: string; filled: boolean }) => new Hexagon(color, filled),
+        ),
+        workers,
+        silvers,
+        dice,
+        selectedColor,
+        state,
+        reward,
+        regionCompleted,
+        photosUnlocked,
+        videosUnlocked,
+        daresCompleted,
+      )
+    }
+    return undefined
+  } catch (error) {
+    console.error('failed loading game', error)
+    return undefined
+  }
+}
+
 export class Game {
   hexagons: Hexagon[]
   workers: number
@@ -189,12 +229,8 @@ export class Game {
     this.state = GameState.RollOrBuy
   }
 
-  static loadGame(): Game {
-    const game = localStorage.getItem('game')
-    if (game) {
-      return JSON.parse(game)
-    }
-    return Game.newGame()
+  save() {
+    localStorage.setItem('game', JSON.stringify(this))
   }
 
   static newGame(): Game {

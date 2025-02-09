@@ -69,3 +69,10 @@ a {
 .image-reward {
   width: 50px;
 }
+
+.button {
+  background-color: var(--color-text);
+  color: var(--color-background);
+  border: solid 2px var(--color-text);
+  border-radius: 5px;
+}

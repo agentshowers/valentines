@@ -1,5 +1,11 @@
 <script setup lang="ts">
-defineEmits(['start-game'])
+import { Game } from '@/assets/gameLogic'
+
+defineProps<{
+  game?: Game
+}>()
+
+defineEmits(['start-game', 'continue-game'])
 </script>
 
 <template>
@@ -9,7 +15,10 @@ defineEmits(['start-game'])
       <img alt="Village" class="village" src="@/assets/images/village.png" />
     </div>
 
-    <button @click="$emit('start-game')" class="start-button">Start the game</button>
+    <button @click="$emit('start-game')" class="home-button button">New game</button>
+    <button v-if="game" @click="$emit('continue-game')" class="home-button button">
+      Continue game
+    </button>
   </div>
 </template>
 
@@ -33,7 +42,8 @@ defineEmits(['start-game'])
   width: 100%;
 }
 
-.start-button {
-  margin-top: 25px;
+.home-button {
+  margin-top: 20px;
+  padding: 10px;
 }
 </style>

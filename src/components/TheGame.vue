@@ -3,15 +3,17 @@ import GameBoard from './game/GameBoard.vue'
 import HexagonTile from './game/HexagonTile.vue'
 import RewardsList from './game/RewardsList.vue'
 import TileSelection from './game/TileSelection.vue'
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 import { Game, GameState, HexagonState, Reward, DARES } from '@/assets/gameLogic'
 
-const game = ref(Game.newGame())
+const { game } = defineProps<{
+  game: Game
+}>()
 
 watch(
-  game,
+  () => game,
   (newGame) => {
-    localStorage.setItem('game', JSON.stringify(newGame))
+    newGame.save()
   },
   { deep: true },
 )
@@ -49,13 +51,13 @@ watch(
       <div v-else-if="game.reward === Reward.Memory" class="reward-text">
         <p class="centered-text">You've unlocked a new memory!</p>
       </div>
-      <button @click="game.acceptTileReward()">Yay</button>
+      <button @click="game.acceptTileReward()" class="button reward-button">Nice!</button>
     </div>
     <div v-else-if="game.state === GameState.RegionReward" class="region-reward">
       <div class="reward-text">
         <p class="centered-text">You completed a region and unlocked a new memory!</p>
       </div>
-      <button @click="game.acceptRegionReward()">Yay</button>
+      <button @click="game.acceptRegionReward()" class="button reward-button">Oooh!</button>
     </div>
   </div>
   <RewardsList :game="game" />
@@ -123,5 +125,9 @@ watch(
 .centered-text {
   display: flex;
   justify-content: center;
+}
+
+.reward-button {
+  padding: 5px 10px;
 }
 </style>
