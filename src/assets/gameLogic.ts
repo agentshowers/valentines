@@ -1,3 +1,5 @@
+import { PHOTOS, VIDEOS } from './memories'
+
 export enum HexagonState {
   Empty,
   Filled,
@@ -45,6 +47,13 @@ export const INDEX_COLORS: Record<number, string> = {
 
 const minTransformations = function (roll: number, index: number): number {
   return Math.min(Math.abs(roll - index), 6 - Math.abs(roll - index))
+}
+
+const openURL = function (url: string): void {
+  const w = window.open(url, '_blank')
+  if (w) {
+    w.focus()
+  }
 }
 
 export class Hexagon {
@@ -130,7 +139,7 @@ export class Game {
   constructor(
     hexagons: Hexagon[],
     workers: number = 2,
-    silvers: number = 50,
+    silvers: number = 2,
     dice: number = 6,
     selectedColor: string | undefined = undefined,
     state: GameState = GameState.RollOrBuy,
@@ -208,6 +217,7 @@ export class Game {
       this.silvers += 1
       this.daresCompleted += 1
     } else if (this.reward === Reward.Memory) {
+      openURL(PHOTOS[this.photosUnlocked])
       this.photosUnlocked += 1
     }
     this.reward = undefined
@@ -220,6 +230,7 @@ export class Game {
 
   acceptRegionReward() {
     this.regionCompleted = false
+    openURL(VIDEOS[this.videosUnlocked])
     this.videosUnlocked += 1
     if (this.videosUnlocked === 5) {
       this.state = GameState.GameOver

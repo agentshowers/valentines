@@ -44,43 +44,31 @@ watch(
       Place the tile on the board
     </div>
     <div v-else-if="game.state === GameState.TileReward" class="tile-reward">
-      <div v-if="game.reward === Reward.Silver" class="reward-text">
-        <p class="centered-text">{{ DARES[game.daresCompleted] }}</p>
-        <p class="centered-text">Reward: 1 silver</p>
+      <div v-if="game.reward === Reward.Silver" class="centered-text">
+        {{ DARES[game.daresCompleted] }}
       </div>
-      <div v-else-if="game.reward === Reward.Workers" class="reward-text">
-        <p class="centered-text">{{ QUESTIONS[game.questionsCompleted] }}</p>
-        <p class="centered-text">Reward: 1 silver</p>
+      <div v-else-if="game.reward === Reward.Workers" class="centered-text">
+        {{ QUESTIONS[game.questionsCompleted] }}
       </div>
-      <div v-else-if="game.reward === Reward.Memory" class="reward-text">
-        <p class="centered-text">You've unlocked a new memory!</p>
-        <p class="centered-text">
-          <a :href="PHOTOS[game.photosUnlocked]" target="_blank">{{
-            PHOTO_CAPTIONS[game.photosUnlocked]
-          }}</a>
-        </p>
+      <div v-else-if="game.reward === Reward.Memory" class="centered-text">
+        You've unlocked a new memory!
       </div>
       <button @click="game.acceptTileReward()" class="button reward-button">
-        <span v-if="game.reward === Reward.Silver">Let's go!</span>
-        <span v-else-if="game.reward === Reward.Workers">Nice!</span>
-        <span v-else-if="game.reward === Reward.Memory">Awww</span>
-        <span v-else>Accept Reward</span>
+        <span v-if="game.reward === Reward.Silver">Get 1 silver</span>
+        <span v-else-if="game.reward === Reward.Workers">Get 2 workers</span>
+        <span v-else-if="game.reward === Reward.Memory">
+          📸 {{ PHOTO_CAPTIONS[game.photosUnlocked] }}
+        </span>
       </button>
     </div>
     <div v-else-if="game.state === GameState.RegionReward" class="region-reward">
-      <div class="reward-text">
-        <p class="centered-text">You completed a region and unlocked a new memory!</p>
-        <p class="centered-text">
-          <a :href="VIDEOS[game.videosUnlocked]" target="_blank">{{
-            VIDEO_CAPTIONS[game.videosUnlocked]
-          }}</a>
-        </p>
-      </div>
-      <button @click="game.acceptRegionReward()" class="button reward-button">😍😘🥰</button>
+      <div class="centered-text">You completed a region and unlocked a new memory!</div>
+      <button @click="game.acceptRegionReward()" class="button reward-button">
+        📽️ {{ VIDEO_CAPTIONS[game.videosUnlocked] }}
+      </button>
     </div>
-    <div v-else-if="game.state === GameState.GameOver" class="reward-text">
-      <p class="centered-text">Game Over!</p>
-      <p class="centered-text">Reward: you can now make out 😘</p>
+    <div v-else-if="game.state === GameState.GameOver" class="centered-text">
+      Game Over! Reward: you can now make out 😘
     </div>
   </div>
   <RewardsList :game="game" />
@@ -130,12 +118,6 @@ watch(
   flex-direction: column;
   align-items: center;
   gap: 20px;
-}
-
-.reward-text {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 .region-reward {
