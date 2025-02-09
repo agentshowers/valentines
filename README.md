@@ -1,7 +1,6 @@
 # TODO
 
-- Game end
-- Update dares/photos/videos
+- Fix video 2
 - Something for green? Questions?
 - Show photo/video in a modal
 - Change starting silvers

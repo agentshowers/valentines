@@ -11,6 +11,7 @@ export enum GameState {
   TilePlacement,
   TileReward,
   RegionReward,
+  GameOver,
 }
 
 export enum Reward {
@@ -226,7 +227,11 @@ export class Game {
   acceptRegionReward() {
     this.regionCompleted = false
     this.videosUnlocked += 1
-    this.state = GameState.RollOrBuy
+    if (this.videosUnlocked === 5) {
+      this.state = GameState.GameOver
+    } else {
+      this.state = GameState.RollOrBuy
+    }
   }
 
   save() {

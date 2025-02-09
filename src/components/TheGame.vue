@@ -75,6 +75,10 @@ watch(
       </div>
       <button @click="game.acceptRegionReward()" class="button reward-button">😍😘🥰</button>
     </div>
+    <div v-else-if="game.state === GameState.GameOver" class="reward-text">
+      <p class="centered-text">Game Over!</p>
+      <p class="centered-text">Reward: you can now make out 😘</p>
+    </div>
   </div>
   <RewardsList :game="game" />
 </template>

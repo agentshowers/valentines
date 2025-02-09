@@ -76,3 +76,10 @@ a {
   border: solid 2px var(--color-text);
   border-radius: 5px;
 }
+
+.button:disabled,
+.button[disabled] {
+  background-color: #ccc;
+  color: #666;
+  border-color: #ccc;
+}
