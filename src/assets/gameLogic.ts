@@ -173,6 +173,11 @@ export class Game {
     this.state = GameState.TileSelection
   }
 
+  gainWorker() {
+    this.workers += 1
+    this.state = GameState.RollOrBuy
+  }
+
   canBuy(color: string): boolean {
     return this.silvers >= 2 && this.colorAvailable(color)
   }
