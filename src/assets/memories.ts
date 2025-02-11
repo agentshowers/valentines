@@ -19,7 +19,7 @@ export const VIDEOS = [video0, video1, video2, video3, video4]
 export const PHOTO_CAPTIONS: Array<string> = [
   'How it all started',
   'What do you say?',
-  'When Juliette attacks',
+  'Our one and only',
   'This animal is known for its trips',
   'Thank you grandma',
   'Better leave it to the pros',
